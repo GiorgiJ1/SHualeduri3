@@ -1,4 +1,4 @@
-require "globals" -- we now require globals
+require "globals" 
 
 local love = require "love"
 

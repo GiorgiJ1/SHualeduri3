@@ -10,7 +10,7 @@ function Player(num_lives)
     local VIEW_ANGLE = math.rad(90)
     local LAZER_DISTANCE = 0.6
     local MAX_LAZERS = 10
-    local USABLE_BLINKS = 10 * 2 -- How many times the ship should blink before becoming vincible again (* 2 since it gets cut in half later)
+    local USABLE_BLINKS = 10 * 2 
 
     return {
         x = love.graphics.getWidth() / 2,
@@ -21,9 +21,9 @@ function Player(num_lives)
         expload_time = 0,
         exploading = false,
         thrusting = false,
-        invincible = true, -- if the playes is immortal/invincible
-        invincible_seen = true, -- if player is grayed out
-        time_blinked = USABLE_BLINKS, -- amount of times player can blink while immortal
+        invincible = true, 
+        invincible_seen = true, 
+        time_blinked = USABLE_BLINKS, 
         lazers = {},
         thrust = {
             x = 0,
@@ -36,7 +36,6 @@ function Player(num_lives)
 
         draw_flame_thrust = function (self, fillType, color)
             if self.invincible_seen then
-                -- make the color seethrough if invisible_seen active
                 table.insert(color, 0.5)
             end
             
@@ -171,14 +170,12 @@ function Player(num_lives)
             end
         end,
 
-        -- now we take in dt
         movePlayer = function (self, dt)
             -- if player is invisible
             if self.invincible then
                 -- decrease availible times blinked
                 self.time_blinked = self.time_blinked - dt * 2
 
-                -- on every uneven blink, make the player fully visible
                 if math.ceil(self.time_blinked) % 2 == 0 then
                     self.invincible_seen = false
                 else

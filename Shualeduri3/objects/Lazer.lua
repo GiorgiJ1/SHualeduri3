@@ -10,9 +10,8 @@ function Lazer(x, y, angle)
         x_vel = LAZER_SPEED * math.cos(angle) / love.timer.getFPS(),
         y_vel = -LAZER_SPEED * math.sin(angle) / love.timer.getFPS(),
         distance = 0,
-        -- exploading: 0 = safe; 1 = exploading; 2 = done exploading
         exploading = 0,
-        expload_time = 0, -- how long has been exploading
+        expload_time = 0, 
 
         draw = function (self, faded)
             local opacity = 1
@@ -41,7 +40,6 @@ function Lazer(x, y, angle)
             self.x = self.x + self.x_vel
             self.y = self.y + self.y_vel
 
-            -- basically set the lazer to exploading state
             if self.expload_time > 0 then
                 self.exploading = 1
             end
@@ -61,7 +59,6 @@ function Lazer(x, y, angle)
             self.distance = self.distance + math.sqrt((self.x_vel ^ 2) + (self.y_vel ^ 2))
         end,
 
-        -- function to make the lazer expload on impact
         expload = function (self)
             self.expload_time = math.ceil(EXPLODE_DUR * (love.timer.getFPS() / 100))
 

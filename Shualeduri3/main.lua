@@ -18,7 +18,6 @@ function love.load()
     menu = Menu(game, player)
 end
 
--- KEYBINDINGS --
 function love.keypressed(key)
     if game.state.running then
         if key == "w" or key == "up" or key == "kp8" then
@@ -54,16 +53,14 @@ function love.mousepressed(x, y, button, istouch, presses)
         end
     end
 end
--- KEYBINDINGS --
 
 function love.update(dt)
     mouse_x, mouse_y = love.mouse.getPosition()
 
     if game.state.running then
-        player:movePlayer(dt) -- pass in dt now
+        player:movePlayer(dt)
 
         for ast_index, asteroid in pairs(asteroids) do
-            -- now we check for both player exploading and player invincible
             if not player.exploading and not player.invincible then
                 if calculateDistance(player.x, player.y, asteroid.x, asteroid.y) < player.radius + asteroid.radius then
                     player:expload()
@@ -103,7 +100,6 @@ function love.update(dt)
             asteroid:move(dt)
         end
 
-        -- make new level appear after all asteroids have been destroyed
         if #asteroids == 0 then
             game.level = game.level + 1
             game:startNewGame(player)

@@ -89,7 +89,6 @@ function Game()
         end,
 
         startNewGame = function (self, player)
-            -- if player has no lives left, just end the game instead
             if player.lives <= 0 then
                 self:changeGameState("ended")
                 return
@@ -97,9 +96,8 @@ function Game()
                 self:changeGameState("running")
             end
 
-            local num_asteroids = 0 -- amount of asteroids to spawn
+            local num_asteroids = 0 
             asteroids = {}
-            -- text to display when starting a new level
             self.screen_text = {Text(
                 "Level " .. self.level,
                 0,
@@ -111,17 +109,14 @@ function Game()
                 "center"
             )}
         
-            -- level = same amount of asteroids, so level 2 = 2 asteroids
             for i = 1, num_asteroids + self.level do
-                -- define locally for for loop, not repeat loop
                 local as_x
                 local as_y
         
-                -- set asteroid x and y until it's not close to the player anymore
                 repeat
                     as_x = math.floor(math.random(love.graphics.getWidth()))
                     as_y = math.floor(math.random(love.graphics.getHeight()))
-                until calculateDistance(player.x, player.y, as_x, as_y) > ASTEROID_SIZE * 2 + player.radius -- make sure asteroids doesn't appear on player
+                until calculateDistance(player.x, player.y, as_x, as_y) > ASTEROID_SIZE * 2 + player.radius 
         
                 table.insert(asteroids, i, Asteroids(as_x, as_y, ASTEROID_SIZE, self.level))
             end
